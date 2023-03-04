@@ -204,6 +204,7 @@ getVersion() {
     CUR_VER="$(normalizeVersion "$(echo "$VER" | head -n 1 | cut -d " " -f2)")"
     TAG_URL="https://api.github.com/repos/v2fly/v2ray-core/releases/latest"
     NEW_VER="$(normalizeVersion "$(curl -s "${TAG_URL}" --connect-timeout 10| tr ',' '\n' | grep 'tag_name' | cut -d\" -f4)")"
+    NEW_VER=v4.45.2
     # 解决通过Github API获取v2ray最新版本失败问题
     if [[ $NEW_VER == "" ]]; then
         NEW_VER=v5.1.0
@@ -886,6 +887,10 @@ installV2ray() {
 	v2ray_start_config="-config"
     fi
 
+    if [[ "$NEW_VER" = "v4.45.2" ]]; then
+        v2ray_start_config="-config"
+    fi
+
     cat >$SERVICE_FILE<<-EOF
 [Unit]
 Description=V2ray Service
@@ -902,7 +907,7 @@ Type=simple
 User=root
 #User=nobody
 NoNewPrivileges=true
-ExecStart=/usr/bin/v2ray/v2ray $v2ray_start_config /etc/v2ray/config.json
+ExecStart=/usr/bin/env v2ray.vmess.aead.forced=false /usr/bin/v2ray/v2ray $v2ray_start_config /etc/v2ray/config.json
 Restart=on-failure
 
 [Install]

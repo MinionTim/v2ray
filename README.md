@@ -32,4 +32,7 @@ bash <(curl -sL https://raw.githubusercontent.com/hiifeng/v2ray/main/install_v2r
 <p>修改VLESS启动失败bug。</p>
 2022年10月18日<br>
 1、修改纯ipv6网络环境下，申请ssl证书失败等bug。<br>
-2、修改安装V2ray最新版本v5.1.0程序异常bug。
+<p>2、修改安装V2ray最新版本v5.1.0程序异常bug。</p>
+2023年03月04日<br>
+1、因为新版本v2ray-core文件结构与4.x版本不一致，因此固定v2ray-core版本为v4.45.2。<br>
+2、新增参数`v2ray.vmess.aead.forced=false`，修复运行时报错:Critical Warning: potentially invalid user: a non VMessAEAD connection is received. From 2022 Jan 1st, this kind of connection will be rejected by default. You should update or replace your client software now.<br>
